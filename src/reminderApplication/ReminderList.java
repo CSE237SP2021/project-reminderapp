@@ -24,4 +24,6 @@ public class ReminderList {
     public void removeReminder(int id) {
     	reminders.remove(id);
     }
+    
+    
 }
