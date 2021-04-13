@@ -24,6 +24,8 @@ public class Application {
 	private JButton editCloseButton;
 	
 	// Home Fields
+	private JButton homeUpButton;
+	private JButton homeDownButton;
 	private JButton homeEditButton;
 	private JButton homeDeleteButton;
 	
@@ -41,7 +43,9 @@ public class Application {
 		editTitleInput = null;
 		editDateInput = null;
 		editCloseButton = null;
-
+		
+		homeUpButton = new JButton("^");
+		homeDownButton = new JButton("v");
 		homeEditButton = new JButton("Edit");
 		homeDeleteButton = new JButton("Delete");
 	}
@@ -176,6 +180,31 @@ public class Application {
 			}
 		});
 		
+		homeUpButton.setBounds(280,0,20,20);
+		homeUpButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int index = textList.getSelectedIndex();
+				reminderList.swapUpReminder(index);
+				updateList();
+				
+				disableHomeButtons();
+			}
+		});
+		
+		homeDownButton.setBounds(300,0,20,20);
+		homeDownButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int index = textList.getSelectedIndex();
+				reminderList.swapDownReminder(index);
+				updateList();
+				
+				disableHomeButtons();
+			}
+		});
+		
+		
 		homeEditButton.setBounds(320, 0, 30, 20);
 		homeEditButton.addActionListener(new ActionListener() {
 			@Override
@@ -201,6 +230,8 @@ public class Application {
 		});	
 
 		mainWindow.add(addBtn);
+		mainWindow.add(homeUpButton);
+		mainWindow.add(homeDownButton);
 		mainWindow.add(homeEditButton);
 		mainWindow.add(homeDeleteButton);
 		mainWindow.add(textList);
@@ -242,11 +273,15 @@ public class Application {
 	}
 	
 	public void enableHomeButtons() {
+		homeUpButton.setEnabled(true);
+		homeDownButton.setEnabled(true);
 		homeEditButton.setEnabled(true);
 		homeDeleteButton.setEnabled(true);
 	}
 	
 	public void disableHomeButtons() {
+		homeUpButton.setEnabled(false);
+		homeDownButton.setEnabled(false);
 		homeEditButton.setEnabled(false);
 		homeDeleteButton.setEnabled(false);
 	}
