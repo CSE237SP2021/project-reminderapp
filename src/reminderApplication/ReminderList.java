@@ -21,9 +21,21 @@ public class ReminderList {
         reminders.add(r);
     }
     
-    public void removeReminder(int id) {
-    	reminders.remove(id);
+    public void removeReminder(int index) {
+    	reminders.remove(index);
     }
     
+    public void swapUpReminder(int index) {
+    	if(index == 0) return;
+    	Reminder tmp = reminders.get(index);
+    	reminders.set(index, reminders.get(index - 1));
+    	reminders.set(index - 1, tmp);
+    }
     
+    public void swapDownReminder(int index) {
+    	if(index == reminders.size() - 1) return;
+    	Reminder tmp = reminders.get(index);
+    	reminders.set(index, reminders.get(index + 1));
+    	reminders.set(index + 1, tmp);
+    }
 }

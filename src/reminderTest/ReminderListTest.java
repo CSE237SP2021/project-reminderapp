@@ -18,7 +18,8 @@ class ReminderListTest {
 	@Test
 	void testInsert() {
 		rl.addReminder(r);
-		assertTrue(true);
+		Reminder reminderTmp = rl.getList().get(rl.getList().size() - 1);
+		assertTrue(reminderTmp == r);
 	}
 	
 	@Test
