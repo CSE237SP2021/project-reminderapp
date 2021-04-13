@@ -21,9 +21,7 @@ public class ReminderList {
         reminders.add(r);
     }
     
-    public void removeReminder(int id) {
-    	reminders.remove(id);
+    public void removeReminder(int index) {
+    	reminders.remove(index);
     }
-    
-    
 }
