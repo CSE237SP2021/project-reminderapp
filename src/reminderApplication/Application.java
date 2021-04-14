@@ -61,7 +61,7 @@ public class Application {
 	
 	// Methods
 	
-	//Setters and Getters
+	//Getters
 	public ReminderList getReminderList() {
 		return reminderList;
 	}
@@ -116,6 +116,8 @@ public class Application {
 	
 	
 	// Add Reminder
+	
+	//create add reminder window
 	public void initAddReminderWindow() {
 		JTextField[] textInputs = reminderWindowPreprocess(addWindow);
 		
@@ -155,6 +157,7 @@ public class Application {
 		addWindow.setVisible(true);
 	}
 	
+	// update list to show new reminder
 	public void finishedNewReminder(Integer id, String title, String description, LocalDate date) {
 		Reminder r =  new Reminder(id, title, description, date);
 		
@@ -165,6 +168,8 @@ public class Application {
 	
 	
 	// Edit Reminder
+	
+	// create edit reminder window
 	public void initEditReminderWindow() {
 		JTextField[] textInputs = reminderWindowPreprocess(editWindow);
 		JButton close_btn = new JButton("Edit");
@@ -211,6 +216,7 @@ public class Application {
 		editWindow.setVisible(true);
 	}
 	
+	// update list to show edited reminder
 	public void finishedEditingReminder(Reminder reminder, Integer id, String title, String description, LocalDate date) {
 		if(id != null) {
 			reminder.setId(id);
@@ -230,6 +236,8 @@ public class Application {
 
 
 	// Main Window
+	
+	// setting up home buttons
 	public void initMainWindow() {
 		JButton addBtn = new JButton("+");
 		addBtn.setBounds(0, 0, 20, 20);
@@ -296,7 +304,6 @@ public class Application {
 		mainWindow.add(homeDeleteButton);
 		mainWindow.add(textList);
 		
-		// Setting edit and delete buttons during initial start up
 		disableHomeButtons();
 		
 		mainWindow.setSize(400, 500);
