@@ -2,7 +2,7 @@
 We have developed a Java application using the Swing GUI that helps users keep track of their tasks.
 
 ## Tutorial
-1. download a local repository
+1. download code to local repo
 2. navigate to the repo in your command line
 3. run the start.sh bash script by running the command ./start.sh
 
@@ -12,7 +12,9 @@ We have developed a Java application using the Swing GUI that helps users keep t
 
 ## Features
 - users can create new reminders
-- users can edit and delete reminders (note: reminder must be highlighted in the list for the edit and delete buttons to work properly)
+- users can edit reminders
+- users can delete reminders
+- users can move reminders up and down to order them in any way they want
 
 ## Known Bugs
-- a lot
+- Input date field for adding and editing reminders will problems if input is not of the correct format
