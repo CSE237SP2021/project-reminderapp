@@ -18,6 +18,11 @@ public class Application {
 	private JList<String> textList;
 	private DefaultListModel<String> textListModel;
 	
+	// Add Fields
+	private JTextField addTitleInput;
+	private JTextField addDateInput;
+	private JButton addCloseButton;
+	
 	// Edit Fields
 	private JTextField editTitleInput;
 	private JTextField editDateInput;
@@ -40,6 +45,10 @@ public class Application {
 		textList = new JList<>();
 		textListModel = new DefaultListModel<>();
 		
+		addTitleInput = null;
+		addDateInput = null;
+		addCloseButton = null;
+		
 		editTitleInput = null;
 		editDateInput = null;
 		editCloseButton = null;
@@ -52,51 +61,93 @@ public class Application {
 	
 	// Methods
 	
+	//Setters and Getters
+	public ReminderList getReminderList() {
+		return reminderList;
+	}
+	
+	public JTextField getAddTitleInput() {
+		return addTitleInput;
+	}
+	
+	public JTextField getAddDateInput() {
+		return addDateInput;
+	}
+	
+	public JButton getAddCloseButton() {
+		return addCloseButton;
+	}
+	
+	public JTextField getEditTitleInput() {
+		return editTitleInput;
+	}
+	
+	public JTextField getEditDateInput() {
+		return editDateInput;
+	}
+	
+	public JButton getEditCloseButton() {
+		return editCloseButton;
+	}
+
 	// Template for Adding and Editing Reminder Windows
 	public JTextField[] reminderWindowPreprocess(JFrame frame) {
-		JLabel label_title = new JLabel("Title");
-		label_title.setBounds(0,0,30,20);
-		JTextField textInput_title = new JTextField("");
-		textInput_title.setBounds(40,0,200,20);
+		JLabel labelTitle = new JLabel("Title");
+		labelTitle.setBounds(0,0,30,20);
+		JTextField textInputTitle = new JTextField("");
+		textInputTitle.setBounds(40,0,200,20);
 		
-		JLabel label_date = new JLabel("Date");
-		label_date.setBounds(0,40,50,20);
-		JTextField textInput_date = new JTextField("YYYY-MM-DD");
-		textInput_date.setBounds(40,40,200,20);
+		JLabel labelDate = new JLabel("Date");
+		labelDate.setBounds(0,40,50,20);
+		JTextField textInputDate = new JTextField("YYYY-MM-DD");
+		textInputDate.setBounds(40,40,200,20);
 		
-		frame.add(label_title);
-		frame.add(textInput_title);
-		frame.add(label_date);
-		frame.add(textInput_date);
+		frame.add(labelTitle);
+		frame.add(textInputTitle);
+		frame.add(labelDate);
+		frame.add(textInputDate);
 		
 		frame.setSize(240, 150);
 		frame.setLayout(null);
 		frame.setVisible(true);
 		
-		return new JTextField[]{textInput_title, textInput_date};
+		return new JTextField[]{textInputTitle, textInputDate};
 	}
 	
 	
-	// New Reminder
-	public void initNewReminderWindow() {
+	// Add Reminder
+	public void initAddReminderWindow() {
 		JTextField[] textInputs = reminderWindowPreprocess(addWindow);
 		
-		JButton close_btn = new JButton("Finished");
-		close_btn.setBounds(80, 100, 80, 20);
-		close_btn.addActionListener(new ActionListener() {
+		addTitleInput = textInputs[0];
+		addDateInput = textInputs[1];
+		addCloseButton = createAddCloseButton(textInputs);
+		
+		addWindow.setVisible(false);
+	}
+	
+	public JButton createAddCloseButton(JTextField[] textInputs) {
+		JButton closeBtn = new JButton("Finished");
+		closeBtn.setBounds(80, 100, 80, 20);
+		
+		closeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedNewReminder(null, textInputs[0].getText(), null, LocalDate.parse(textInputs[1].getText()));
 				
-				textInputs[0].setText("");
-				textInputs[1].setText("YYYY-MM-DD");
+				resetInputFields(textInputs);
 				
 				addWindow.setVisible(false);
 				mainWindow.setVisible(true);
 			}
 		});
 		
-		addWindow.add(close_btn);
-		addWindow.setVisible(false);
+		addWindow.add(closeBtn);
+		return closeBtn;
+	}
+	
+	public void resetInputFields(JTextField[] textInputs) {
+		textInputs[0].setText("");
+		textInputs[1].setText("YYYY-MM-DD");
 	}
 	
 	public void showAddReminderWindow() {
@@ -108,6 +159,7 @@ public class Application {
 		Reminder r =  new Reminder(id, title, description, date);
 		
 		reminderList.addReminder(r);
+		
 		updateList();
 	}
 	
@@ -126,13 +178,21 @@ public class Application {
 		editWindow.setVisible(false);
 	}
 	
+	public JButton createEditCloseButton() {
+		JButton closeBtn = new JButton("Edit");
+		closeBtn.setBounds(80, 100, 80, 20);
+		editWindow.add(closeBtn);
+		
+		return closeBtn;
+	}
+	
 	public void updateEditWindowInputTextFields(Reminder reminder) {
 		editTitleInput.setText(reminder.getTitle());
 		editDateInput.setText(reminder.getDueDate().toString());
 	}
 	
-	public void updateEditWindowInputButton(Reminder reminder, JButton button) {
-		button.addActionListener(new ActionListener() {
+	public void updateEditWindowInputButton(Reminder reminder) {
+		editCloseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedEditingReminder(reminder, null, editTitleInput.getText(), null,
 						LocalDate.parse(editDateInput.getText()));
@@ -145,7 +205,7 @@ public class Application {
 	
 	public void showEditReminderWindow(Reminder reminder) {
 		updateEditWindowInputTextFields(reminder);
-		updateEditWindowInputButton(reminder, editCloseButton);
+		updateEditWindowInputButton(reminder);
 		
 		mainWindow.setVisible(false);
 		editWindow.setVisible(true);
@@ -286,9 +346,14 @@ public class Application {
 		homeDeleteButton.setEnabled(false);
 	}
 
+	public void exitSetting() {
+		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
 	public void run() {
 		initMainWindow();
-		initNewReminderWindow();
+		initAddReminderWindow();
 		initEditReminderWindow();
+		exitSetting();
 	}
 }

@@ -21,6 +21,7 @@ public class Reminder {
     public int getId(){
         return id;
     }
+    
     public void setId(int val) {
         id = val;
     }
@@ -28,6 +29,7 @@ public class Reminder {
     public String getTitle() {
         return title;
     }
+    
     public void setTitle(String t) {
     	title = t;
     }
@@ -35,6 +37,7 @@ public class Reminder {
     public String getDescription() {
         return description;
     }
+    
     public void setDescription(String d) {
     	description = d;
     }
@@ -42,6 +45,7 @@ public class Reminder {
     public LocalDate getDueDate() {
         return dueDate;
     }
+    
     public void setDueDate(LocalDate dd) {
     	dueDate = dd;
     }
