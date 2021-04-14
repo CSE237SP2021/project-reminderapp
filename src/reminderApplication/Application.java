@@ -37,6 +37,12 @@ public class Application {
 		editWindow = new JFrame();
 		
 		reminderList = new ReminderList();
+		//integrate "load from file" method here
+		//Should only load if a save file exists
+		if(SaveAndLoad.checkIfSaveExists()==true) {
+			reminderList=SaveAndLoad.loadFromFile();
+		}
+		
 		textList = new JList<>();
 		textListModel = new DefaultListModel<>();
 		
