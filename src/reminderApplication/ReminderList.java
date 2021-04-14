@@ -31,9 +31,12 @@ public class ReminderList {
     
     //uses a merge sort to sort the Reminders by due dates, the earliest duedate is in the front 
     public void dateSort() {
-    	
+    	ArrayList<Reminder> rl = new ArrayList<Reminder>();
+    	for (int i =0; i < reminders.size(); i++) {
+    		rl.add(i, reminders.get(i));
+    	}
     	dateDivide(reminders);
-    	
+    	//reminders = rl;
     }
     
     
@@ -64,7 +67,7 @@ public class ReminderList {
     
     //merges the arrays back together
     public void dateMerge(ArrayList<Reminder> rl, ArrayList<Reminder> left, ArrayList<Reminder> right) {
-    	
+    	//ArrayList<Reminder> temp = new ArrayList<Reminder>();
     	int l = 0;
     	int r = 0;
     	int index = 0;
@@ -87,7 +90,7 @@ public class ReminderList {
     		}
     	}
     	
-    	else {
+    	if(r >= right.size()) {
     		for(int i = l; i < left.size(); i++) {
     			reminders.add(index, left.get(i));
     			index++;
