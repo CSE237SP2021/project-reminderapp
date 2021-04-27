@@ -91,6 +91,7 @@ public class ReminderList {
     	int l = 0;
     	int r = 0;
     	int index = 0;
+    	//adds the earliest date to list first
     	while (l < left.size() && r < right.size()) {
     		if(left.get(l).getDueDate().isBefore(right.get(r).getDueDate())){
     			reminders.set(index,left.get(l));
@@ -103,6 +104,7 @@ public class ReminderList {
     		index++;
     	}
     	
+    	//adds the remaining list to the end of the new list
     	if(l >= left.size()) {
     		for(int i = r; i < right.size(); i++) {
     			reminders.set(index, right.get(i));
