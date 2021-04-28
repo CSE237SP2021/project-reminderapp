@@ -22,6 +22,9 @@ public class MainWindow {
 	private JButton downBtn;
 	private JButton editBtn;
 	private JButton delBtn;
+	private JButton sortBtn;
+	private JButton saveBtn;
+	private JButton loadBtn;
 
 	public MainWindow() {
 		frame = new JFrame();
@@ -29,20 +32,21 @@ public class MainWindow {
 		editWindow = new EditReminderWindow(this);
 		
 		reminderList = new ReminderList();
-		if(SaveAndLoad.checkIfSaveExists()) {
-			reminderList=SaveAndLoad.loadFromFile();
-		}
+//		if(SaveAndLoad.checkIfSaveExists()) {
+//			reminderList=SaveAndLoad.loadFromFile();
+//		}
 		
 		textList = new JList<>();
 		textListModel = new DefaultListModel<>();
-		
-		
-		
+				
 		addBtn = new JButton("+");
 		upBtn = new JButton("^");
 		downBtn = new JButton("v");
 		editBtn = new JButton("Edit");
 		delBtn = new JButton("Delete");
+		sortBtn = new JButton("Sort");
+		saveBtn = new JButton("Save");
+		loadBtn = new JButton("Load");
 		
 		createUIComponents();
 	}
@@ -93,6 +97,9 @@ public class MainWindow {
 		configDownButton();
 		configEditButton();
 		configDeleteButton();
+		configSortButton();
+		configSaveButton();
+		configLoadButton();
 		configFrame();
 	}
 	
@@ -166,7 +173,44 @@ public class MainWindow {
 			}
 		});
 	}
+	
+	private void configSortButton() {
+		MainWindow self = this;
+		sortBtn.setBounds(20, 0, 40, 20);
+		sortBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				reminderList.dateSort();
+				UIComponentManager.updateListUI(self);
+				disableHomeButtons();
+			}
+		});
+	}
 
+	private void configSaveButton() {
+		saveBtn.setBounds(60, 0, 50, 20);
+		saveBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				SaveAndLoad.saveToFile(reminderList);
+				disableHomeButtons();
+			}
+		});
+	}
+	
+	private void configLoadButton() {
+		loadBtn.setBounds(110, 0, 50, 20);
+		loadBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				reminderList = SaveAndLoad.loadFromFile();
+				disableHomeButtons();
+			}
+		});
+	}
+	
 	private void configFrame() {
 		frame.setSize(400, 500);
 		frame.setLayout(null);
@@ -179,6 +223,9 @@ public class MainWindow {
 		frame.add(downBtn);
 		frame.add(editBtn);
 		frame.add(delBtn);
+		frame.add(sortBtn);
+		frame.add(loadBtn);
+		frame.add(saveBtn);
 		frame.add(textList);
 	}
 	

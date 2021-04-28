@@ -78,7 +78,7 @@ public class SaveAndLoad {
 
 
 	//TODO Finish this
-	public void saveToFile(ReminderList listToSave) {
+	public static void saveToFile(ReminderList listToSave) {
 		//code outline obtained from https://www.w3schools.com/java/java_files_create.asp
 		int numberOfReminders = listToSave.getSize();
 		ArrayList<Reminder> actualList = listToSave.getList();

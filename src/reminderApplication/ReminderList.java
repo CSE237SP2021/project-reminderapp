@@ -3,10 +3,8 @@ package reminderApplication;
 import java.util.ArrayList;
 
 public class ReminderList {
-    //fields
     ArrayList<Reminder> reminders;
 
-    //constructor
     public ReminderList() {
         reminders = new ArrayList<>();
     }
@@ -15,12 +13,11 @@ public class ReminderList {
     	return reminders;
     }
 
-    //methods
     public void addReminder(Reminder r) {
         r.setId(reminders.size());
         reminders.add(r);
     }
-    //returns the size of the list
+
     public int getSize() {
     	return reminders.size();
     }
@@ -47,15 +44,8 @@ public class ReminderList {
     
     
     //uses a merge sort to sort the Reminders by due dates, the earliest duedate is in the front 
-    public void dateSort() {
-    	//the commented out code is for different implement that is better but is having issues running I'll try to fix it for the next iteration
-//    	ArrayList<Reminder> rl = new ArrayList<Reminder>();
-//    	for (int i =0; i < reminders.size(); i++) {
-//    		rl.add(i, reminders.get(i));
-//    	}
-    	
+    public void dateSort() {    	
     	dateDivide(reminders);
-    	//reminders = rl;
     }
     
     
@@ -64,12 +54,11 @@ public class ReminderList {
     public void dateDivide(ArrayList<Reminder> rl) {
     	ArrayList <Reminder> left = new ArrayList<Reminder>();
     	ArrayList<Reminder> right = new ArrayList<Reminder>();
-    	if(rl.size()> 1){//chcking if it can be divided
+    	if(rl.size()> 1){
     		int mid = rl.size()/2;
     		
     		for (int i = 0; i < mid; i ++) {
-    			left.add(rl.get(i));
-    			
+    			left.add(rl.get(i));    			
     		}
     		
     		for (int j = mid; j < rl.size(); j++) {
@@ -85,9 +74,7 @@ public class ReminderList {
     }
     
     
-    //merges the arrays back together
     public void dateMerge(ArrayList<Reminder> rl, ArrayList<Reminder> left, ArrayList<Reminder> right) {
-    	//ArrayList<Reminder> temp = new ArrayList<Reminder>();
     	int l = 0;
     	int r = 0;
     	int index = 0;
@@ -116,8 +103,5 @@ public class ReminderList {
     			index++;
     		}
     	}
-    	
-    	
-
     }
 }
