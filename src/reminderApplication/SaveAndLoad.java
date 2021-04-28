@@ -48,6 +48,9 @@ public class SaveAndLoad {
 		    		//get description
 		    		String description = myReader.nextLine();
 		    		
+		    		//get tag (WHEN IMPLEMENTED)
+		    		//String tag = myReader.nextLine();
+		    		
 		    		//get date
 		    		String dateString = myReader.nextLine();
 		    		
@@ -82,6 +85,25 @@ public class SaveAndLoad {
 		//code outline obtained from https://www.w3schools.com/java/java_files_create.asp
 		int numberOfReminders = listToSave.getSize();
 		ArrayList<Reminder> actualList = listToSave.getList();
+		
+		
+		if(!checkIfSaveExists()) {
+			//create new file
+			//code outline from w3schools
+			// https://www.w3schools.com/java/java_files_create.asp
+			 try {
+			      File myObj = new File("SavedReminders.txt");
+			      if (myObj.createNewFile()) {
+			        System.out.println("File created: " + myObj.getName());
+			      } else {
+			        System.out.println("File already exists.");
+			      }
+			    } catch (IOException e) {
+			      System.out.println("An error occurred.");
+			      e.printStackTrace();
+			    }
+		}
+		
 		 try {
 			 //this -should- simply overwrite the contents of the file
 		      FileWriter saveWriter = new FileWriter("SavedReminders.txt");
