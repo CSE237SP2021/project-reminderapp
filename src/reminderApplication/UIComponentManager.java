@@ -15,8 +15,9 @@ public abstract class UIComponentManager {
 		for(Reminder reminder : reminders) {
 			String title = reminder.getTitle();
 			String date = reminder.getDueDate().toString();
+			String tag = reminder.getTag();
 			
-			mainWindow.getTextListModel().addElement(title + "  |  " + date);
+			mainWindow.getTextListModel().addElement(title + "  |  " + date + " | " + tag);
 		}
 		
 		mainWindow.getFrame().remove(mainWindow.getTextList());
@@ -24,7 +25,7 @@ public abstract class UIComponentManager {
 		mainWindow.getFrame().repaint();
 		
 		mainWindow.setTextList(new JList<>(mainWindow.getTextListModel()));
-		mainWindow.textList.setBounds(0, 30, 200, 380);
+		mainWindow.textList.setBounds(0, 50, 200, 380);
 		mainWindow.textList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -32,6 +33,35 @@ public abstract class UIComponentManager {
 			}
 		});
 		
+		
+		mainWindow.getFrame().add(mainWindow.getTextList());
+	}
+	
+	public static void updateListUI(MainWindow mainWindow, String tags) {
+		ArrayList<Reminder> reminders = mainWindow.getReminderList().getTaggedRem(tags);
+		
+		mainWindow.setTextListModel(new DefaultListModel<>());
+		
+		for(Reminder reminder : reminders) {
+			String title = reminder.getTitle();
+			String date = reminder.getDueDate().toString();
+			String tag = reminder.getTag();
+			
+			mainWindow.getTextListModel().addElement(title + "  |  " + date + " | " + tag);
+		}
+		
+		mainWindow.getFrame().remove(mainWindow.getTextList());
+		mainWindow.getFrame().validate();
+		mainWindow.getFrame().repaint();
+		
+		mainWindow.setTextList(new JList<>(mainWindow.getTextListModel()));
+		mainWindow.textList.setBounds(0, 50, 200, 380);
+		mainWindow.textList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				mainWindow.enableHomeButtons();
+			}
+		});
 		
 		mainWindow.getFrame().add(mainWindow.getTextList());
 	}

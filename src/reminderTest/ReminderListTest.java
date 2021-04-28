@@ -120,21 +120,19 @@ class ReminderListTest {
 		Reminder r3 = new Reminder(1,"title 1", "description 1", dueDate3, "tag");
 		rl.addReminder(r3);
 		rl.dateSort();
-		ArrayList<Reminder> al =rl.getList();//sorted list
+		ArrayList<Reminder> al = rl.getList();//sorted list
 		ArrayList<Reminder> tl = new ArrayList<Reminder>();//true list
 		tl.add(r2);
 		tl.add(r3);
 		tl.add(r1);
-		boolean flag = true;
-		int i = 0;
-		while (i < 3 && flag == true) {
+		
+		for(int i = 0; i < al.size(); ++i) {
 			System.out.println(al.get(i).getDueDate());
 			if(al.get(i).getDueDate().isEqual(tl.get(i).getDueDate()) != true) {
-				flag = false;
+				assertTrue(false);
 			}
-			i++;
 		}
-		assertTrue(flag);
+		assertTrue(true);
 	}
 	
 	

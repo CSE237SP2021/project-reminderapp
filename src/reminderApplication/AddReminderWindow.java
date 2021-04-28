@@ -21,6 +21,7 @@ public class AddReminderWindow extends InputWindow {
 		
 		titleTextField = new JTextField("");
 		dateTextField = new JTextField("YYYY-MM-DD");
+		tagTextField = new JTextField("");
 		closeBtn = new JButton("Finished");
 		
 		configUIComponents();

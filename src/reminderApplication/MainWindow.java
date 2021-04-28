@@ -42,13 +42,17 @@ public class MainWindow {
 		
 		textList = new JList<>();
 		textListModel = new DefaultListModel<>();
+		
+		textTag = new JTextField("");
 		tagBtn = new JButton("tag");
 		noTagBtn = new JButton("no tag");
+		
 		addBtn = new JButton("+");
 		upBtn = new JButton("^");
 		downBtn = new JButton("v");
 		editBtn = new JButton("Edit");
 		delBtn = new JButton("Delete");
+		
 		sortBtn = new JButton("Sort");
 		saveBtn = new JButton("Save");
 		loadBtn = new JButton("Load");
@@ -122,24 +126,26 @@ public class MainWindow {
 	}
 	
 	private void configTagInput() {
-		
-		textTag.setBounds(40,0,160,20);
+		textTag.setBounds(0,30,160,20);
 	}
+	
 	private void configTagButton() {
-		tagBtn.setBounds(200, 0, 40, 20);
+		MainWindow self = this;
+		tagBtn.setBounds(160, 30, 40, 20);
 		tagBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tag = textTag.getText();
-				updateList(tag);
+				UIComponentManager.updateListUI(self, tag);
 			}
 		});
 	}
 	
 	private void configNoTagButton() {
-		noTagBtn.setBounds(200, 0, 40, 20);
+		MainWindow self = this;
+		noTagBtn.setBounds(200, 30, 60, 20);
 		noTagBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateList();
+				UIComponentManager.updateListUI(self);
 			}
 		});
 	}
@@ -243,7 +249,7 @@ public class MainWindow {
 	}
 	
 	private void configFrame() {
-		frame.setSize(400, 500);
+		frame.setSize(430, 500);
 		frame.setLayout(null);
 		frame.setVisible(true);
 	}
@@ -252,11 +258,18 @@ public class MainWindow {
 		frame.add(addBtn);
 		frame.add(upBtn);
 		frame.add(downBtn);
+		
 		frame.add(editBtn);
 		frame.add(delBtn);
+		
 		frame.add(sortBtn);
 		frame.add(loadBtn);
 		frame.add(saveBtn);
+		
+		frame.add(textTag);
+		frame.add(tagBtn);
+		frame.add(noTagBtn);
+		
 		frame.add(textList);
 	}
 	
