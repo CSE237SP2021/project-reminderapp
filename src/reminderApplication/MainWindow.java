@@ -36,9 +36,6 @@ public class MainWindow {
 		editWindow = new EditReminderWindow(this);
 		
 		reminderList = new ReminderList();
-//		if(SaveAndLoad.checkIfSaveExists()) {
-//			reminderList=SaveAndLoad.loadFromFile();
-//		}
 		
 		textList = new JList<>();
 		textListModel = new DefaultListModel<>();
@@ -229,7 +226,6 @@ public class MainWindow {
 		saveBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 				SaveAndLoad.saveToFile(reminderList);
 				disableHomeButtons();
 			}
@@ -237,12 +233,13 @@ public class MainWindow {
 	}
 	
 	private void configLoadButton() {
+		MainWindow self = this;
 		loadBtn.setBounds(110, 0, 50, 20);
 		loadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 				reminderList = SaveAndLoad.loadFromFile();
+				UIComponentManager.updateListUI(self);
 				disableHomeButtons();
 			}
 		});

@@ -10,15 +10,7 @@ import javax.swing.event.ListSelectionListener;
 public abstract class UIComponentManager {
 	public static void updateListUI(MainWindow mainWindow) {
 		ArrayList<Reminder> reminders = mainWindow.getReminderList().getList();
-		mainWindow.setTextListModel(new DefaultListModel<>());
-		
-		for(Reminder reminder : reminders) {
-			String title = reminder.getTitle();
-			String date = reminder.getDueDate().toString();
-			String tag = reminder.getTag();
-			
-			mainWindow.getTextListModel().addElement(title + "  |  " + date + " | " + tag);
-		}
+		updateTextListModel(reminders, mainWindow);
 		
 		mainWindow.getFrame().remove(mainWindow.getTextList());
 		mainWindow.getFrame().validate();
@@ -65,4 +57,21 @@ public abstract class UIComponentManager {
 		
 		mainWindow.getFrame().add(mainWindow.getTextList());
 	}
+	
+	private static void updateTextListModel(ArrayList<Reminder> reminders, MainWindow mainWindow) {
+		
+		mainWindow.setTextListModel(new DefaultListModel<>());
+		
+		for(Reminder reminder : reminders) {
+			String title = reminder.getTitle();
+			String date = reminder.getDueDate().toString();
+			String tag = reminder.getTag();
+			
+			mainWindow.getTextListModel().addElement(title + "  |  " + date + " | " + tag);
+		}
+	}
+	private static void updateListUI() {
+		
+	}
+	
 }

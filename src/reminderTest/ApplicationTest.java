@@ -33,10 +33,7 @@ public class ApplicationTest {
 		app.finishedEditingReminder(r, null, "new title", null, newDueDate, "tag");
 		assertTrue(r.getTitle().equals("new title") && r.getDueDate().toString().equals("1111-11-11"));
 	}
-	
-	// the user can input any type of string for the date input.
-	// From the code, we can see that the parse method fails if a faulty input is given
-	// This is also reflective in our current program
+
 	@Test
 	void testFaultyDateInput() {
 		LocalDate dueDate = LocalDate.parse("hello, world");
@@ -46,13 +43,4 @@ public class ApplicationTest {
 		
 		assertTrue(r.getTitle().equals("title 1") && r.getDueDate().toString().equals("hello, world"));
 	}
-	
-	void testDeleteReminder() {
-		// this test has been omitted because deleteReminder ultimately calls remove
-		// on a arraylist of reminders. And thus, we know that it works.
-	}
-	
-	
-	// HomeUpButton and HomeDownButton has been tested
-	// within the ReminderListTest class
 }
