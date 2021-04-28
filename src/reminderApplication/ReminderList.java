@@ -58,65 +58,73 @@ public class ReminderList {
     
     //uses a merge sort to sort the Reminders by due dates, the earliest duedate is in the front 
     public void dateSort() {    	
-    	dateDivide(reminders);
+    	reminders = dateDivide(reminders);
     }
     
     
-    //Starts the divide process of the merge sort
-    //takes in an arraylist and divides it into 2 
-    public void dateDivide(ArrayList<Reminder> rl) {
-    	ArrayList <Reminder> left = new ArrayList<Reminder>();
-    	ArrayList<Reminder> right = new ArrayList<Reminder>();
-    	if(rl.size()> 1){
-    		int mid = rl.size()/2;
-    		
-    		for (int i = 0; i < mid; i ++) {
-    			left.add(rl.get(i));    			
-    		}
-    		
-    		for (int j = mid; j < rl.size(); j++) {
-    			right.add(rl.get(j));
-    		}
-    		
-    		dateDivide(left);
-    		dateDivide(right);
-    		
-    	}
-  
-    	dateMerge(rl, left, right);
+    public ArrayList<Reminder> dateDivide(ArrayList<Reminder> rl) {
+        ArrayList<Reminder> left = new ArrayList<Reminder>();
+        ArrayList<Reminder> right = new ArrayList<Reminder>();
+        int center;
+     
+        if (rl.size() == 1) {    
+            return rl;
+        } else {
+            center = rl.size()/2;
+           
+            for (int i=0; i<center; i++) {
+                    left.add(rl.get(i));
+            }
+     
+            
+            for (int i=center; i<rl.size(); i++) {
+                    right.add(rl.get(i));
+            }
+     
+            
+            left  = dateDivide(left);
+            right = dateDivide(right);
+     
+            
+            dateMerge( rl, left, right);
+        }
+        return rl;
     }
     
     
-    public void dateMerge(ArrayList<Reminder> rl, ArrayList<Reminder> left, ArrayList<Reminder> right) {
-    	int l = 0;
-    	int r = 0;
-    	int index = 0;
-    	//adds the earliest date to list first
-    	while (l < left.size() && r < right.size()) {
-    		if(left.get(l).getDueDate().isBefore(right.get(r).getDueDate())){
-    			reminders.set(index,left.get(l));
-    			l++;
-    		}
-    		else {
-    			reminders.set(index,right.get(r));
-    			r++;
-    		}
-    		index++;
-    	}
-    	
-    	//adds the remaining list to the end of the new list
-    	if(l >= left.size()) {
-    		for(int i = r; i < right.size(); i++) {
-    			reminders.set(index, right.get(i));
-    			index++;
-    		}
-    	}
-    	
-    	if(r >= right.size()) {
-    		for(int i = l; i < left.size(); i++) {
-    			reminders.add(index, left.get(i));
-    			index++;
-    		}
-    	}
+    private void dateMerge( ArrayList<Reminder> rl, ArrayList<Reminder> left, ArrayList<Reminder> right) {
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int rlIndex = 0;
+     
+        
+        while (leftIndex < left.size() && rightIndex < right.size()) {
+            if ( (left.get(leftIndex).getDueDate().isBefore(right.get(rightIndex).getDueDate()))) {
+                rl.set(rlIndex, left.get(leftIndex));
+                leftIndex++;
+            } else {
+                rl.set(rlIndex, right.get(rightIndex));
+                rightIndex++;
+            }
+            rlIndex++;
+        }
+     
+        ArrayList<Reminder> remaining;
+        int remainingIndex;
+        if (leftIndex >= left.size()) {
+            
+            remaining = right;
+            remainingIndex = rightIndex;
+        } else {
+           
+            remaining = left;
+            remainingIndex = leftIndex;
+        }
+     
+       
+        for (int i= remainingIndex; i<remaining.size(); i++) {
+            rl.set(rlIndex, remaining.get(i));
+            rlIndex++;
+        }
     }
 }
