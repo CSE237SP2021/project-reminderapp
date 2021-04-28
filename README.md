@@ -20,4 +20,5 @@ We have developed a Java application using the Swing GUI that helps users keep t
 - users can sort reminders by due date
 
 ## Known Bugs
-- Input date field for adding and editing reminders will problems if input is not of the correct format
+- Input date field for adding and editing reminders will cause problems if input is not of the correct format
+- Using the sort button with no reminders will crash the program
