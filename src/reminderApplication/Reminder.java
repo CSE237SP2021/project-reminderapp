@@ -7,12 +7,15 @@ public class Reminder {
     private String title;
     private String description;
     private LocalDate dueDate;
+    //private int priority;
 
     public Reminder(Integer i, String t, String d, LocalDate dd) {
         id = (i != null) ? i : -1;
         title = (t != null) ? t : "";
         description = (d != null) ? d : "";
         dueDate = (dd != null) ? dd : LocalDate.parse("0000-01-01");
+       // priority = (p != null) ? p : 0;
+
     }
 
     public int getId(){
@@ -53,4 +56,13 @@ public class Reminder {
 		if(description != null) setDescription(description);
 		if(date != null) setDueDate(date);
     }
+
+    //These methods are the setter/getters for the priority which describes how each task ranks in importance with respect to eachother
+//    public int getPriority() {
+//    	return priority;
+//    }
+//    
+//    public void setPriority(int val) {
+//    	priority = val;
+//    }
 }
