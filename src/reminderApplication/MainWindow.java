@@ -29,8 +29,14 @@ public class MainWindow {
 		editWindow = new EditReminderWindow(this);
 		
 		reminderList = new ReminderList();
+		if(SaveAndLoad.checkIfSaveExists()) {
+			reminderList=SaveAndLoad.loadFromFile();
+		}
+		
 		textList = new JList<>();
 		textListModel = new DefaultListModel<>();
+		
+		
 		
 		addBtn = new JButton("+");
 		upBtn = new JButton("^");

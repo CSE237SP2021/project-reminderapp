@@ -18,7 +18,7 @@ public class Reminder {
 
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
     
