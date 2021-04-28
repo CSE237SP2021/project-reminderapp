@@ -8,15 +8,15 @@ public class Reminder {
     private String title;
     private String description;
     private LocalDate dueDate;
-    //private int priority;
+    private String tag;
 
     // constructor
-    public Reminder(Integer i, String t, String d, LocalDate dd) {
+    public Reminder(Integer i, String t, String d, LocalDate dd, String ta) {
         id = (i != null) ? i : -1;
         title = (t != null) ? t : "";
         description = (d != null) ? d : "";
         dueDate = (dd != null) ? dd : LocalDate.parse("2007-12-03");
-       // priority = (p != null) ? p : 0;
+        tag = (ta != null) ? ta : "";
     }
 
     // methods
@@ -52,12 +52,13 @@ public class Reminder {
     	dueDate = dd;
     }
     
-    //These methods are the setter/getters for the priority which describes how each task ranks in importance with respect to eachother
-//    public int getPriority() {
-//    	return priority;
-//    }
-//    
-//    public void setPriority(int val) {
-//    	priority = val;
-//    }
+    //this method is used to return a tag, which is useful for getting all reminders with the tag 
+    public String getTag() {
+    	return tag;
+    }
+    
+    //This method is for setting a new tag
+    public void setTag(String t) {
+    	tag = t;
+    }
 }

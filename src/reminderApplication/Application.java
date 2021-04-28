@@ -21,11 +21,14 @@ public class Application {
 	// Add Fields
 	private JTextField addTitleInput;
 	private JTextField addDateInput;
+	private JTextField addTagInput;
 	private JButton addCloseButton;
+	
 	
 	// Edit Fields
 	private JTextField editTitleInput;
 	private JTextField editDateInput;
+	private JTextField editTagInput;
 	private JButton editCloseButton;
 	
 	// Home Fields
@@ -33,6 +36,8 @@ public class Application {
 	private JButton homeDownButton;
 	private JButton homeEditButton;
 	private JButton homeDeleteButton;
+	private JButton homeTagButton;
+	private JButton homeNoTagButton;
 	
 	
 	// Constructor
@@ -47,7 +52,10 @@ public class Application {
 		
 		addTitleInput = null;
 		addDateInput = null;
+		addTagInput = null;
 		addCloseButton = null;
+		
+		
 		
 		editTitleInput = null;
 		editDateInput = null;
@@ -57,6 +65,8 @@ public class Application {
 		homeDownButton = new JButton("v");
 		homeEditButton = new JButton("Edit");
 		homeDeleteButton = new JButton("Delete");
+		homeTagButton = new JButton("Tag");
+		homeNoTagButton = new JButton("No Tag");
 	}
 	
 	// Methods
@@ -74,6 +84,10 @@ public class Application {
 		return addDateInput;
 	}
 	
+	public JTextField getAddTagInput() {
+		return addTagInput;
+	}
+	
 	public JButton getAddCloseButton() {
 		return addCloseButton;
 	}
@@ -84,6 +98,10 @@ public class Application {
 	
 	public JTextField getEditDateInput() {
 		return editDateInput;
+	}
+	
+	public JTextField getEditTagInput() {
+		return editTagInput;
 	}
 	
 	public JButton getEditCloseButton() {
@@ -102,16 +120,23 @@ public class Application {
 		JTextField textInputDate = new JTextField("YYYY-MM-DD");
 		textInputDate.setBounds(40,40,200,20);
 		
+		JLabel labelTag = new JLabel("Tag");
+		labelTag.setBounds(0, 80, 30, 20);
+		JTextField textInputTag = new JTextField("");
+		textInputTag.setBounds(40,80,200,20);
+		
 		frame.add(labelTitle);
 		frame.add(textInputTitle);
 		frame.add(labelDate);
 		frame.add(textInputDate);
+		frame.add(labelTag);
+		frame.add(textInputTag);
 		
-		frame.setSize(240, 150);
+		frame.setSize(300, 200);
 		frame.setLayout(null);
 		frame.setVisible(true);
 		
-		return new JTextField[]{textInputTitle, textInputDate};
+		return new JTextField[]{textInputTitle, textInputDate, textInputTag};
 	}
 	
 	
@@ -123,6 +148,7 @@ public class Application {
 		
 		addTitleInput = textInputs[0];
 		addDateInput = textInputs[1];
+		addTagInput = textInputs[2];
 		addCloseButton = createAddCloseButton(textInputs);
 		
 		addWindow.setVisible(false);
@@ -130,11 +156,11 @@ public class Application {
 	
 	public JButton createAddCloseButton(JTextField[] textInputs) {
 		JButton closeBtn = new JButton("Finished");
-		closeBtn.setBounds(80, 100, 80, 20);
+		closeBtn.setBounds(80, 120, 80, 20);
 		
 		closeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				finishedNewReminder(null, textInputs[0].getText(), null, LocalDate.parse(textInputs[1].getText()));
+				finishedNewReminder(null, textInputs[0].getText(), null, LocalDate.parse(textInputs[1].getText()),  textInputs[2].getText());
 				
 				resetInputFields(textInputs);
 				
@@ -150,6 +176,7 @@ public class Application {
 	public void resetInputFields(JTextField[] textInputs) {
 		textInputs[0].setText("");
 		textInputs[1].setText("YYYY-MM-DD");
+		textInputs[2].setText("");
 	}
 	
 	public void showAddReminderWindow() {
@@ -158,8 +185,8 @@ public class Application {
 	}
 	
 	// update list to show new reminder
-	public void finishedNewReminder(Integer id, String title, String description, LocalDate date) {
-		Reminder r =  new Reminder(id, title, description, date);
+	public void finishedNewReminder(Integer id, String title, String description, LocalDate date, String tag) {
+		Reminder r =  new Reminder(id, title, description, date, tag);
 		
 		reminderList.addReminder(r);
 		
@@ -177,6 +204,7 @@ public class Application {
 		
 		editTitleInput = textInputs[0];
 		editDateInput = textInputs[1];
+		editTagInput = textInputs[2];
 		editCloseButton = close_btn;
 		
 		editWindow.add(close_btn);
@@ -194,13 +222,14 @@ public class Application {
 	public void updateEditWindowInputTextFields(Reminder reminder) {
 		editTitleInput.setText(reminder.getTitle());
 		editDateInput.setText(reminder.getDueDate().toString());
+		editTagInput.setText(reminder.getTag());
 	}
 	
 	public void updateEditWindowInputButton(Reminder reminder) {
 		editCloseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedEditingReminder(reminder, null, editTitleInput.getText(), null,
-						LocalDate.parse(editDateInput.getText()));
+						LocalDate.parse(editDateInput.getText()), editTagInput.getText());
 
 				editWindow.setVisible(false);
 				mainWindow.setVisible(true);
@@ -217,7 +246,7 @@ public class Application {
 	}
 	
 	// update list to show edited reminder
-	public void finishedEditingReminder(Reminder reminder, Integer id, String title, String description, LocalDate date) {
+	public void finishedEditingReminder(Reminder reminder, Integer id, String title, String description, LocalDate date, String tag) {
 		if(id != null) {
 			reminder.setId(id);
 		}
@@ -229,6 +258,9 @@ public class Application {
 		}
 		if(date != null) {
 			reminder.setDueDate(date);
+		}
+		if(tag != null) {
+			reminder.setTag(tag);
 		}
 		
 		updateList();
@@ -245,6 +277,25 @@ public class Application {
 			public void actionPerformed(ActionEvent e) {
 				mainWindow.setVisible(false);
 				showAddReminderWindow();
+			}
+		});
+		
+		JTextField textTag = new JTextField("");
+		textTag.setBounds(40,0,160,20);
+		
+		homeTagButton.setBounds(200, 0, 40, 20);
+		homeTagButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tag = textTag.getText();
+				updateList(tag);
+			}
+		});
+		
+	
+		homeNoTagButton.setBounds(240, 0, 40, 20);
+		homeNoTagButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateList();
 			}
 		});
 		
@@ -298,6 +349,9 @@ public class Application {
 		});	
 
 		mainWindow.add(addBtn);
+		mainWindow.add(textTag);
+		mainWindow.add(homeTagButton);
+		mainWindow.add(homeNoTagButton);
 		mainWindow.add(homeUpButton);
 		mainWindow.add(homeDownButton);
 		mainWindow.add(homeEditButton);
@@ -318,8 +372,36 @@ public class Application {
 		for(Reminder reminder : reminders) {
 			String title = reminder.getTitle();
 			String date = reminder.getDueDate().toString();
-			
-			textListModel.addElement(title + "  |  " + date);
+			String tag = reminder.getTag();
+			textListModel.addElement(title + "  |  " + date + " | " + tag);
+		}
+		
+		mainWindow.remove(textList);
+		mainWindow.validate();
+		mainWindow.repaint();
+		
+		textList = new JList<>(textListModel);
+		textList.setBounds(0, 30, 200, 380);
+		textList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				enableHomeButtons();
+			}
+		});
+		
+		
+		mainWindow.add(textList);
+	}
+	
+	public void updateList(String tags) {
+		ArrayList<Reminder> reminders = reminderList.getTaggedRem(tags);
+		textListModel = new DefaultListModel<>();
+		
+		for(Reminder reminder : reminders) {
+			String title = reminder.getTitle();
+			String date = reminder.getDueDate().toString();
+			String tag = reminder.getTag();
+			textListModel.addElement(title + "  |  " + date + " | " + tag);
 		}
 		
 		mainWindow.remove(textList);
@@ -344,6 +426,8 @@ public class Application {
 		homeDownButton.setEnabled(true);
 		homeEditButton.setEnabled(true);
 		homeDeleteButton.setEnabled(true);
+		homeNoTagButton.setEnabled(true);
+		homeTagButton.setEnabled(true);
 	}
 	
 	public void disableHomeButtons() {
@@ -351,6 +435,8 @@ public class Application {
 		homeDownButton.setEnabled(false);
 		homeEditButton.setEnabled(false);
 		homeDeleteButton.setEnabled(false);
+		homeNoTagButton.setEnabled(false);
+		homeTagButton.setEnabled(false);
 	}
 
 	public void exitSetting() {

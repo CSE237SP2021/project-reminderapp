@@ -44,6 +44,19 @@ public class ReminderList {
     	reminders.set(index + 1, tmp);
     }
     
+    //This method is used for getting all of the reminders that are tagged with the same tag. EX: would return a list of all reminders tagged "Homework"
+    //This is case sensitive
+    public ArrayList<Reminder> getTaggedRem(String tag){
+    	ArrayList<Reminder> rl = new ArrayList<Reminder>();
+    	
+    	for(int i = 0; i < reminders.size(); i++) {
+    		if(reminders.get(i).getTag().equals(tag)) {
+    			rl.add(reminders.get(i));
+    		}
+    	}
+    	
+    	return rl;
+    }
     
     
     //uses a merge sort to sort the Reminders by due dates, the earliest duedate is in the front 
