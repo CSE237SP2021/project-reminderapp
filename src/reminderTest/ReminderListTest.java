@@ -95,24 +95,23 @@ class ReminderListTest {
 	//This test out if the tag sorting works, where it returns all of the reminders with a given tag
 	@Test
 	void testTags() {
-	rl.addReminder(r1);
-	rl.addReminder(r2);
-	rl.addReminder(r3);
-	String t = "tag1";
-	boolean flag = true;
-	
-	ArrayList<Reminder> al = rl.getTaggedRem("tag1");
-	
-	for(int i = 0; i < al.size(); i++) {
+		rl.addReminder(r1);
+		rl.addReminder(r2);
+		rl.addReminder(r3);
+		String t = "tag1";
+		boolean flag = true;
 		
-		if(!al.get(i).getTag().equals(t)) {
-			flag = false;
-			break;
+		ArrayList<Reminder> al = rl.getTaggedRem("tag1");
+		
+		for(int i = 0; i < al.size(); i++) {
+			
+			if(!al.get(i).getTag().equals(t)) {
+				flag = false;
+				break;
+			}
 		}
-	}
-	
-	assertTrue(flag);
-	
+		
+		assertTrue(flag);
 	}
 	
 	@Test

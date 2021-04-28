@@ -37,7 +37,16 @@ public class SaveLoadTests {
 		SaveAndLoad.saveToFile(rl, "testReminderSave.txt");
 		ReminderList loadedList = SaveAndLoad.loadFromFile("testReminderSave.txt");
 		
-		
+		for(int i = 0; i < rl.getSize(); ++i) {
+			if(!loadedList.getList().get(i).getTitle().equals(rl.getList().get(i).getTitle()) || 
+			   !loadedList.getList().get(i).getTag().equals(rl.getList().get(i).getTag()) || 
+			   !loadedList.getList().get(i).getDueDate().toString().equals(rl.getList().get(i).getDueDate().toString())
+			) {
+				assertTrue(false);
+				return;
+			}	
+		}
+		assertTrue(true);
 	}
 	
 	
