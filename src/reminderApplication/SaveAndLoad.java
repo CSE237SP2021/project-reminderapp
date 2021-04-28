@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.time.*;
+import java.util.ArrayList;
 
 public class SaveAndLoad {
 
@@ -41,12 +42,19 @@ public class SaveAndLoad {
 		    		//come back and put this process in it's own method
 		    		
 		    		//parse lines from SavedReminders.txt into a new reminder, and add it to the list.
+		    		//get title
 		    		String title = myReader.nextLine();
+		    		
+		    		//get description
 		    		String description = myReader.nextLine();
+		    		
+		    		//get date
 		    		String dateString = myReader.nextLine();
-		    		LocalDate dateLD = LocalDate.parse(dateString);
+		    		
+		    		//convert date
+		    		LocalDate localDateString = LocalDate.parse(dateString);
 		    				    		
-		    		Reminder currentReminder = new Reminder(i, title, description, dateLD);
+		    		Reminder currentReminder = new Reminder(i, title, description, localDateString);
 		    		loadedReminderList.addReminder(currentReminder);
 		    		
 		    	}
@@ -70,21 +78,37 @@ public class SaveAndLoad {
 	
 	
 	//TODO Finish this
-	public void saveToFile() {
+	public void saveToFile(ReminderList listToSave) {
 		//code outline obtained from https://www.w3schools.com/java/java_files_create.asp
+		int numberOfReminders = listToSave.getSize();
+		ArrayList<Reminder> actualList = listToSave.getList();
 		 try {
-		      FileWriter myWriter = new FileWriter("SavedReminders.txt");
+			 //this -should- simply overwrite the contents of the file
+		      FileWriter saveWriter = new FileWriter("SavedReminders.txt");
 		      
 		      
 		      
 		      
-		      for(int i=0; i<4; ++i) {
+		      
+		      for(int i=0; i<numberOfReminders; ++i) {
 		    	  //write 1 reminder to file
+		    	  //write title
+		    	  saveWriter.write(actualList.get(i).getTitle());
+		    	  
+		    	  //write description
+		    	  saveWriter.write(actualList.get(i).getDescription());
+		    	  
+		    	  //write tag (when implemented)
+		    	  //saveWriter.write(actualList.get(i).getTag());
+		    	  
+		    	  //write date
+		    	  saveWriter.write(actualList.get(i).getDueDate().toString());
+		    	  
 		      }
 		      
 		      
 		      
-		      myWriter.close();
+		      saveWriter.close();
 		      //System.out.println("Successfully wrote to the file.");
 		 }
 		catch (IOException e) {
@@ -94,9 +118,9 @@ public class SaveAndLoad {
 		
 		return;
 	}	
-	
-	public void writeReminderToFile() {
-		
-		return;
-	}
+//	not actually going to use this one as I would have to have the filewriter as a parameter
+//	public void writeReminderToFile() {
+//		
+//		return;
+//	}
 }

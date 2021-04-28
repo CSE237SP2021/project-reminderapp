@@ -13,6 +13,6 @@ We have developed a Java application using the Swing GUI that helps users keep t
 ## Features
 - users can create new reminders
 - users can edit and delete reminders (note: reminder must be highlighted in the list for the edit and delete buttons to work properly)
-
+- users can start 
 ## Known Bugs
 - a lot
