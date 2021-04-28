@@ -41,7 +41,7 @@ public class ReminderList {
     	reminders.set(index + 1, tmp);
     }
     
-    //This method is used for getting all of the reminders that are tagged with the same tag. EX: would return a list of all reminders tagged "Homework"
+    //This method is used for getting all of the reminders that are tagged with the same tag.
     //This is case sensitive
     public ArrayList<Reminder> getTaggedRem(String tag){
     	ArrayList<Reminder> rl = new ArrayList<Reminder>();
@@ -61,15 +61,15 @@ public class ReminderList {
     	reminders = dateDivide(reminders);
     }
     
-    
-    public ArrayList<Reminder> dateDivide(ArrayList<Reminder> rl) {
+    private ArrayList<Reminder> dateDivide(ArrayList<Reminder> rl) {
         ArrayList<Reminder> left = new ArrayList<Reminder>();
         ArrayList<Reminder> right = new ArrayList<Reminder>();
         int center;
      
         if (rl.size() == 1) {    
             return rl;
-        } else {
+        } 
+        else {
             center = rl.size()/2;
            
             for (int i=0; i<center; i++) {
@@ -80,8 +80,7 @@ public class ReminderList {
             for (int i=center; i<rl.size(); i++) {
                     right.add(rl.get(i));
             }
-     
-            
+
             left  = dateDivide(left);
             right = dateDivide(right);
      
@@ -97,12 +96,12 @@ public class ReminderList {
         int rightIndex = 0;
         int rlIndex = 0;
      
-        
         while (leftIndex < left.size() && rightIndex < right.size()) {
             if ( (left.get(leftIndex).getDueDate().isBefore(right.get(rightIndex).getDueDate()))) {
                 rl.set(rlIndex, left.get(leftIndex));
                 leftIndex++;
-            } else {
+            } 
+            else {
                 rl.set(rlIndex, right.get(rightIndex));
                 rightIndex++;
             }
@@ -115,7 +114,8 @@ public class ReminderList {
             
             remaining = right;
             remainingIndex = rightIndex;
-        } else {
+        } 
+        else {
            
             remaining = left;
             remainingIndex = leftIndex;

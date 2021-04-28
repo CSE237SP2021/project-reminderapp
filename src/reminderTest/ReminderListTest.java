@@ -76,13 +76,20 @@ class ReminderListTest {
 		assertTrue(rl.getList().size() == 2 && first != second && second == r1);
 	}
 	
+	// used to test what would happen if we tried swapping down from the last possible index
 	@Test
-	void testDelete() {
-		int size = rl.getSize();
+	void testSwapDownEdgeCase() {
 		rl.addReminder(r1);
-		rl.removeReminder(r1.getId());
-		assertTrue(size == rl.getSize());
-
+		rl.addReminder(r2);
+		
+		rl.swapDownReminder(1);
+		
+		Reminder first = rl.getList().get(0);
+		Reminder second = rl.getList().get(1);
+		
+		// testing that a swap has occurred
+		// after a bad swap, r2 should be in its original position
+		assertTrue(rl.getList().size() == 2 && first != second && second == r2);
 	}
 	
 	//This test out if the tag sorting works, where it returns all of the reminders with a given tag
@@ -128,29 +135,10 @@ class ReminderListTest {
 		
 		for(int i = 0; i < al.size(); ++i) {
 			System.out.println(al.get(i).getDueDate());
-			if(al.get(i).getDueDate().isEqual(tl.get(i).getDueDate()) != true) {
+			if(!al.get(i).getDueDate().isEqual(tl.get(i).getDueDate())) {
 				assertTrue(false);
 			}
 		}
 		assertTrue(true);
-	}
-	
-	
-
-
-	// used to test what would happen if we tried swapping down from the last possible index
-	@Test
-	void testSwapDownEdgeCase() {
-		rl.addReminder(r1);
-		rl.addReminder(r2);
-		
-		rl.swapDownReminder(1);
-		
-		Reminder first = rl.getList().get(0);
-		Reminder second = rl.getList().get(1);
-		
-		// testing that a swap has occurred
-		// after a bad swap, r2 should be in its original position
-		assertTrue(rl.getList().size() == 2 && first != second && second == r2);
 	}
 }
