@@ -9,18 +9,18 @@ import java.util.ArrayList;
 
 public class SaveAndLoad {
 
-	public static boolean checkIfSaveExists() {
-		File saveFile = new File("SavedReminders.txt"); 
+	public static boolean checkIfSaveExists(String fileToCheck) {
+		File saveFile = new File(fileToCheck); 
 		return saveFile.exists();
 	}
 	
-	public static ReminderList loadFromFile() {
+	public static ReminderList loadFromFile(String fileToLoadFrom) {
 		//outline from w3schools https://www.w3schools.com/java/java_files_read.asp
 		
 		ReminderList loadedReminderList= new ReminderList();
 		    try {
 		    	
-		    	File myObj = new File("SavedReminders.txt");
+		    	File myObj = new File(fileToLoadFrom);
 		    	Scanner myReader = new Scanner(myObj);
 		    	
 		    	//first line of save will always be number of reminders
@@ -56,16 +56,16 @@ public class SaveAndLoad {
 	}
 
 
-	public static void saveToFile(ReminderList listToSave) {
+	public static void saveToFile(ReminderList listToSave, String fileToSaveTo) {
 		//code outline obtained from https://www.w3schools.com/java/java_files_create.asp
 		ArrayList<Reminder> actualList = listToSave.getList();
 		int numberOfReminders = listToSave.getSize();
 
-		if(!checkIfSaveExists()) {
+		if(!checkIfSaveExists(fileToSaveTo)) {
 			//code outline from w3schools
 			// https://www.w3schools.com/java/java_files_create.asp
 			 try {
-			      File myObj = new File("SavedReminders.txt");
+			      File myObj = new File(fileToSaveTo);
 			      if (myObj.createNewFile()) {
 			        System.out.println("File created: " + myObj.getName());
 			      } else {
@@ -79,7 +79,7 @@ public class SaveAndLoad {
 		
 		 try {
 			 //If the file exists, the file will be overwritten
-		      FileWriter saveWriter = new FileWriter("SavedReminders.txt");
+		      FileWriter saveWriter = new FileWriter(fileToSaveTo);
 		      saveWriter.write(numberOfReminders + System.getProperty( "line.separator" ));
 		      
 		      for(int i=0; i<numberOfReminders; ++i) {

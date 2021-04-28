@@ -226,7 +226,7 @@ public class MainWindow {
 		saveBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SaveAndLoad.saveToFile(reminderList);
+				SaveAndLoad.saveToFile(reminderList, "SavedReminders.txt");
 				disableHomeButtons();
 			}
 		});
@@ -238,7 +238,7 @@ public class MainWindow {
 		loadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				reminderList = SaveAndLoad.loadFromFile();
+				reminderList = SaveAndLoad.loadFromFile("SavedReminders.txt");
 				UIComponentManager.updateListUI(self);
 				disableHomeButtons();
 			}
