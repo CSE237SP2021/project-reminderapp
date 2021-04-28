@@ -3,12 +3,12 @@ package reminderApplication;
 import java.time.*;
 
 public class Reminder {
-    //fields
     private int id;
     private String title;
     private String description;
     private LocalDate dueDate;
     private String tag;
+
 
     // constructor
     public Reminder(Integer i, String t, String d, LocalDate dd, String ta) {
@@ -19,39 +19,40 @@ public class Reminder {
         tag = (ta != null) ? ta : "";
     }
 
-    // methods
-    public int getId(){
+
+    public int getId() {
         return id;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public LocalDate getDueDate() {
+        return dueDate;
     }
     
     public void setId(int val) {
         id = val;
     }
 
-    public String getTitle() {
-        return title;
-    }
-    
     public void setTitle(String t) {
     	title = t;
     }
 
-    public String getDescription() {
-        return description;
-    }
-    
     public void setDescription(String d) {
     	description = d;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-    
     public void setDueDate(LocalDate dd) {
     	dueDate = dd;
     }
     
+
     //this method is used to return a tag, which is useful for getting all reminders with the tag 
     public String getTag() {
     	return tag;
@@ -61,4 +62,15 @@ public class Reminder {
     public void setTag(String t) {
     	tag = t;
     }
+
+    public void updateReminder(Integer id, String title, String description, LocalDate date, String tag){  	
+		if(id != null) setId(id);
+		if(title != null) setTitle(title);
+		if(description != null) setDescription(description);
+		if(date != null) setDueDate(date);
+		if(tag != null) setTag(tag);
+    }
+
+
+
 }
